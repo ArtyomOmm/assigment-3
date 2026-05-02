@@ -17,7 +17,7 @@ public class MyHashTable<K, V> {
     }
 
     private HashNode<K, V>[] chainArray;
-    private int M = 11; // дефолтное количество бакетов
+    private int M = 11;
     private int size;
 
     @SuppressWarnings("unchecked")
@@ -34,8 +34,7 @@ public class MyHashTable<K, V> {
     }
 
     private int hash(K key) {
-        // Берем по модулю, чтобы индекс не вышел за пределы массива
-        // Math.abs защищает от отрицательных хэш-кодов
+
         return Math.abs(key.hashCode() % M);
     }
 
@@ -44,7 +43,7 @@ public class MyHashTable<K, V> {
         HashNode<K, V> head = chainArray[index];
         HashNode<K, V> current = head;
 
-        // Проверяем, есть ли уже такой ключ. Если есть - обновляем значение
+
         while (current != null) {
             if (current.key.equals(key)) {
                 current.value = value;
@@ -53,7 +52,7 @@ public class MyHashTable<K, V> {
             current = current.next;
         }
 
-        // Если ключа нет, вставляем новый узел в начало цепочки
+
         HashNode<K, V> newNode = new HashNode<>(key, value);
         newNode.next = head;
         chainArray[index] = newNode;
@@ -81,9 +80,9 @@ public class MyHashTable<K, V> {
         while (current != null) {
             if (current.key.equals(key)) {
                 if (prev == null) {
-                    chainArray[index] = current.next; // Удаляем голову цепочки
+                    chainArray[index] = current.next;
                 } else {
-                    prev.next = current.next; // Удаляем узел из середины/конца
+                    prev.next = current.next;
                 }
                 size--;
                 return current.value;
@@ -91,7 +90,7 @@ public class MyHashTable<K, V> {
             prev = current;
             current = current.next;
         }
-        return null; // Ключ не найден
+        return null;
     }
 
     public boolean contains(V value) {
@@ -120,7 +119,7 @@ public class MyHashTable<K, V> {
         return null;
     }
 
-    // Вспомогательный метод для тестирования (выводит размер каждого бакета)
+
     public void printBucketSizes() {
         for (int i = 0; i < M; i++) {
             int count = 0;
